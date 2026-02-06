@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girls Reunion Dinner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terracotta: #C5907E;
+            --warm-taupe: #A89180;
+            --slate-grey: #8B9199;
+            --charcoal: #3D4047;
+            --cream: #F5F3F0;
+            --light-grey: #E8E6E3;
+            --soft-white: #FAFAF8;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light-grey) 50%, var(--warm-taupe) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: var(--charcoal);
+        }
+
+        /* Floating decorative elements */
+        .decoration {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.08;
+            animation: float 25s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .decoration:nth-child(1) {
+            width: 350px;
+            height: 350px;
+            background: var(--terracotta);
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .decoration:nth-child(2) {
+            width: 250px;
+            height: 250px;
+            background: var(--slate-grey);
+            top: 50%;
+            right: -100px;
+            animation-delay: 8s;
+        }
+
+        .decoration:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: var(--warm-taupe);
+            bottom: -120px;
+            left: 25%;
+            animation-delay: 16s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(180deg);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Page transitions */
+        .page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.6s ease;
+        }
+
+        .page.hidden {
+            display: none;
+        }
+
+        /* Page 1 - Hero */
+        .hero-title {
+            font-family: 'Abril Fatface', serif;
+            font-size: 7rem;
+            color: var(--charcoal);
+            text-align: center;
+            margin-bottom: 35px;
+            animation: fadeInDown 1.2s ease;
+            font-weight: 400;
+            letter-spacing: 3px;
+            line-height: 1.1;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--slate-grey);
+            text-align: center;
+            max-width: 650px;
+            line-height: 2;
+            margin-bottom: 60px;
+            animation: fadeIn 1.8s ease;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Countdown Timer */
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 50px 70px;
+            box-shadow: 0 15px 50px rgba(61, 64, 71, 0.12);
+            margin-bottom: 50px;
+            animation: fadeInUp 2.2s ease;
+            border: 1px solid rgba(197, 144, 126, 0.2);
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .countdown-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--terracotta);
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+            font-style: italic;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .countdown-value {
+            font-family: 'Abril Fatface', serif;
+            font-size: 5rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            display: block;
+            animation: pulse 2.5s infinite;
+            line-height: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .countdown-label {
+            font-size: 0.85rem;
+            color: var(--slate-grey);
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            cursor: pointer;
+            animation: bounce 2.5s infinite;
+            margin-top: 30px;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 35px;
+            height: 35px;
+            border: 2px solid var(--terracotta);
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto 12px;
+        }
+
+        .scroll-indicator span::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: var(--terracotta);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .scroll-text {
+            color: var(--slate-grey);
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Page 2 - Details */
+        .details-content {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 30px;
+            padding: 70px;
+            box-shadow: 0 20px 60px rgba(61, 64, 71, 0.1);
+            max-width: 850px;
+            margin: 0 auto;
+            border: 1px solid rgba(197, 144, 126, 0.15);
+        }
+
+        .details-title {
+            font-family: 'Abril Fatface', serif;
+            font-size: 5.5rem;
+            color: var(--charcoal);
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .section {
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 2.4rem;
+            color: var(--terracotta);
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        .section-content {
+            font-size: 1.05rem;
+            color: var(--charcoal);
+            line-height: 2;
+            margin-bottom: 18px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        .location-highlight {
+            background: linear-gradient(120deg, var(--terracotta) 0%, var(--warm-taupe) 100%);
+            color: white;
+            padding: 3px 14px;
+            border-radius: 20px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .activities-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .activity-card {
+            background: linear-gradient(135deg, var(--warm-taupe) 0%, var(--terracotta) 100%);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(197, 144, 126, 0.25);
+            letter-spacing: 0.5px;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-6px) rotate(1deg);
+            box-shadow: 0 12px 30px rgba(197, 144, 126, 0.35);
+        }
+
+        .emoji {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 12px;
+            filter: grayscale(0.1);
+        }
+
+        .back-button {
+            background: linear-gradient(120deg, var(--terracotta) 0%, var(--warm-taupe) 100%);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Manrope', sans-serif;
+            box-shadow: 0 6px 20px rgba(197, 144, 126, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(197, 144, 126, 0.4);
+        }
+
+        .center-button {
+            text-align: center;
+        }
+
+        /* Reveal button for location */
+        .reveal-button {
+            background: linear-gradient(120deg, var(--terracotta) 0%, var(--warm-taupe) 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Manrope', sans-serif;
+            box-shadow: 0 4px 15px rgba(197, 144, 126, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 144, 126, 0.4);
+        }
+
+        .location-reveal {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .location-reveal.show {
+            display: block;
+        }
+
+        /* Minimal decorative accents */
+        .accent-line {
+            width: 60px;
+            height: 1px;
+            background: var(--terracotta);
+            margin: 20px auto;
+            opacity: 0.5;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+
+            .countdown-container {
+                padding: 35px 25px;
+            }
+
+            .countdown-value {
+                font-size: 3rem;
+            }
+
+            .countdown-title {
+                font-size: 1.2rem;
+            }
+
+            .details-content {
+                padding: 45px 35px;
+            }
+
+            .details-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .section-content {
+                font-size: 1rem;
+            }
+
+            .activities-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .countdown {
+                gap: 15px;
+            }
+
+            .countdown-value {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decorative elements -->
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+    <div class="decoration"></div>
+
+    <!-- Page 1: Hero with Countdown -->
+    <div class="page" id="page1">
+        <div class="container">
+            <h1 class="hero-title">The Reunion</h1>
+            <p class="hero-subtitle">
+                No but seriously — after 4 whole years, the 4 of us are finally gonna be in the same country, 
+                same city, so i thought let's make it fun!
+            </p>
+            
+            <div class="countdown-container">
+                <div class="countdown-title">countdown to the main event ✨</div>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="days">0</span>
+                        <span class="countdown-label">days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="hours">0</span>
+                        <span class="countdown-label">hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">0</span>
+                        <span class="countdown-label">minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">0</span>
+                        <span class="countdown-label">seconds</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="reveal-button" onclick="revealLocation()">Reveal the Location ✨</button>
+                <div class="location-reveal" id="locationReveal">
+                    <p style="font-size: 1.2rem; color: var(--charcoal); font-weight: 500; margin-top: 20px;">
+                        We're going to <span class="location-highlight">my parent's new farmhouse near Mulshi!</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="scroll-indicator" onclick="showPage2()">
+                <span></span>
+                <div class="scroll-text">scroll for the deets</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Details -->
+    <div class="page hidden" id="page2">
+        <div class="container">
+            <div class="details-content">
+                <h2 class="details-title">The Plan</h2>
+                <div class="accent-line"></div>
+
+                <div class="section">
+                    <h3 class="section-title">The Vibes</h3>
+                    <p class="section-content">
+                        📅 <strong>Weekend getaway energy</strong> — We'll spend the day chilling, maybe hit up the 
+                        Mulshi backwaters for a swim or a picnic, or honestly just lay around and yap
+                    </p>
+                    <p class="section-content">
+                        🍽️ For lunch and dinner, we can either arrange it at the farms itself (they offer catering too), 
+                        Swiggy or cook ourselves! However you prefer.
+                    </p>
+                    <p class="section-content">
+                        🌙 Stay the night, soak it all in, head back next morning
+                    </p>
+                    <p class="section-content">
+                        🥞 Brunch the next day?? Open to suggestions but also we might be too lazy and that's valid
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Activities</h3>
+                    <div class="activities-list">
+                        <div class="activity-card">
+                            <span class="emoji">🎬</span>
+                            Movies
+                        </div>
+                        <div class="activity-card">
+                            <span class="emoji">💆‍♀️</span>
+                            Skincare Night
+                        </div>
+                        <div class="activity-card">
+                            <span class="emoji">🌟</span>
+                            Stargazing
+                        </div>
+                        <div class="activity-card">
+                            <span class="emoji">🎲</span>
+                            Board Games
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section" style="text-align: center; margin-top: 50px;">
+                    <p class="section-content" style="font-size: 1.15rem; font-weight: 500; color: var(--terracotta);">
+                        Attendance is Mandatory 😉<br>
+                        I'm not taking 'no' for an answer.
+                    </p>
+                </div>
+
+                <div class="center-button">
+                    <button class="back-button" onclick="showPage1()">← back to countdown</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Countdown Timer
+        const countdownDate = new Date("March 13, 2026 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+
+            if (distance < 0) {
+                document.getElementById("days").textContent = "0";
+                document.getElementById("hours").textContent = "0";
+                document.getElementById("minutes").textContent = "0";
+                document.getElementById("seconds").textContent = "0";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Page Navigation
+        function showPage2() {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function showPage1() {
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page1').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // Location reveal
+        function revealLocation() {
+            const locationReveal = document.getElementById('locationReveal');
+            const button = event.target;
+            locationReveal.classList.add('show');
+            button.style.display = 'none';
+        }
+
+        // Smooth fade-in on load
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.6s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
